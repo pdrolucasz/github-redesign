@@ -9,7 +9,8 @@ import {
     RiGroupLine,
     RiGithubFill,
     RiBuildingLine,
-    RiMapPinFill
+    RiMapPinFill,
+    RiLogoutBoxLine
 } from 'react-icons/ri'
 import { FiAlertCircle } from 'react-icons/fi'
 
@@ -17,9 +18,8 @@ import { useAuth } from '../../contexts/AuthContext'
 import { ModalEditProfile } from './ModalEditProfile'
 
 export function Sidebar() {
-    const { user } = useAuth()
+    const { user, signOut } = useAuth()
     const { isOpen, onOpen, onClose } = useDisclosure()
-    console.log(user)
 
     return (
         <Flex
@@ -146,6 +146,21 @@ export function Sidebar() {
                     Edit Profile
                 </Button>
                 <ModalEditProfile onClose={onClose} isOpen={isOpen} />
+
+                <Button
+                    type="button"
+                    onClick={signOut}
+                    mt="auto"
+                    bg="transparent"
+                    size="lg"
+                    color="red.500"
+                    _hover={{
+                        color: 'gray.50',
+                        backgroundColor: 'red.500'
+                    }}
+                >
+                    <Icon as={RiLogoutBoxLine} fontSize="35" />
+                </Button>
             </Flex>
         </Flex>
     )

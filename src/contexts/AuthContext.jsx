@@ -40,6 +40,17 @@ export function AuthProvider({ children }) {
         history.push('/dashboard')
     }, [history])
 
+    const signOut = useCallback((userName) => {
+
+        localStorage.removeItem('@github:user')
+        localStorage.removeItem('@github:repos')
+
+        setUser(undefined)
+        setRepos(undefined)
+
+        history.push('/')
+    }, [history])
+
     const updateUser = useCallback(async (description, company, location) => {
         const updatedUser = {...user, bio: description, company, location}
 
@@ -49,7 +60,7 @@ export function AuthProvider({ children }) {
     }, [user])
 
     return (
-        <AuthContext.Provider value={{ user, repos, signIn, updateUser }}>
+        <AuthContext.Provider value={{ user, repos, signIn, updateUser, signOut }}>
             {children}
         </AuthContext.Provider>
     )
