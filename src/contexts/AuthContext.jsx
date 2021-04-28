@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
             return JSON.parse(user)
         }
 
-        return {}
+        return undefined
     })
     const [repos, setRepos] = useState(() => {
         const repos = localStorage.getItem('@github:repos')
@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
             return JSON.parse(repos)
         }
 
-        return {}
+        return undefined
     })
 
     const signIn = useCallback(async (userName) => {

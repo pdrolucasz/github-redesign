@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
 import { Flex, Text, Input, Icon, SimpleGrid, Box, Stack } from '@chakra-ui/react'
 import { RiSearchLine, RiStarFill, RiStackshareLine } from 'react-icons/ri'
 
@@ -7,14 +5,7 @@ import { Sidebar } from '../components/Sidebar'
 import { useAuth } from '../contexts/AuthContext'
 
 export function Dashboard() {
-    const { repos, user } = useAuth()
-    const history = useHistory()
-
-    useEffect(() => {
-        if(!user && !repos) {
-            history.push('/')
-        }
-    }, [history, repos, user])
+    const { repos } = useAuth()
 
     return (
         <Flex>
