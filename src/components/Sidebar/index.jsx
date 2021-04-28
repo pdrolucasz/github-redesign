@@ -63,7 +63,7 @@ export function Sidebar() {
                                 <Icon as={RiEyeLine} fontSize="20" />
                                 <Text ml="4" fontWeight="medium">Overview</Text>
                             </Link>
-                            <Link display="flex" align="center">
+                            <Link display="flex" align="center" color="pink.200">
                                 <Icon as={RiGitRepositoryLine} fontSize="20" />
                                 <Text ml="4" fontWeight="medium">Repositories</Text>
                             </Link>
