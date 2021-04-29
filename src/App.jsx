@@ -4,13 +4,16 @@ import { theme } from './styles/theme'
 
 import { Routes } from './routes'
 import { AuthProvider } from './contexts/AuthContext'
+import { SideBarDrawerProvider } from './contexts/SideBarDrawerContext'
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Router>
         <AuthProvider>
-          <Routes />
+          <SideBarDrawerProvider>
+            <Routes />
+          </SideBarDrawerProvider>
         </AuthProvider>
       </Router>
     </ChakraProvider>

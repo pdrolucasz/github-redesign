@@ -1,36 +1,69 @@
-import { Flex, Text, Input, Icon, SimpleGrid, Box, Stack } from '@chakra-ui/react'
-import { RiSearchLine, RiStarFill, RiStackshareLine } from 'react-icons/ri'
+import {
+    Flex,
+    Text,
+    Input,
+    Icon,
+    SimpleGrid,
+    Box,
+    Stack,
+    HStack,
+    useMediaQuery,
+    IconButton
+} from '@chakra-ui/react'
+import { RiSearchLine, RiStarFill, RiStackshareLine, RiMenuLine } from 'react-icons/ri'
 
 import { Sidebar } from '../components/Sidebar'
 import { useAuth } from '../contexts/AuthContext'
+import { useSidebarDrawer } from '../contexts/SideBarDrawerContext'
 
 export function Dashboard() {
     const { repos } = useAuth()
+    const { onOpen } = useSidebarDrawer()
+    const [pageWidth] = useMediaQuery('(max-width: 1024px)')
 
     return (
-        <Flex>
+        <Flex
+            flexDirection={pageWidth ? 'column' : 'row'}
+        >
+            {pageWidth && (
+                <IconButton
+                    aria-label="Open navigation"
+                    icon={<Icon as={RiMenuLine} />}
+                    fontSize="24"
+                    mr="auto"
+                    color="gray.900"
+                    variant="unstyled"
+                    onClick={onOpen}
+                >
+
+                </IconButton>
+            )}
             <Sidebar />
             <Flex
-                p="10"
+                p="8"
                 color="gray.900"
                 flexDirection="column"
-                w="full"
-                maxWidth={1418}
-                ml="auto"
+                maxWidth={1400}
+                style={{
+                    width: 'calc(100% - 32rem)'
+                }}
+                ml={pageWidth ? '' : 'auto'}
             >
                 <Flex
                     as="header"
                     flexDirection="column"
                     mb="8"
+                    w="100vw"
                 >
                     <Text as="h1" fontSize="xx-large" fontWeight="bold">Repositories</Text>
-                    <Flex mt="4">
+                    <Flex mt="4" flexDirection={pageWidth ? 'column' : 'row'}>
                         <Text as="p" fontSize="lg">{repos.length} Repositories has created so far</Text>
 
                         <Flex
                             as="label"
                             flex="1"
-                            ml="6"
+                            ml={pageWidth ? '0' : '6'}
+                            mt={pageWidth ? '4' : '0'}
                             color="gray.900"
                         >
                             <Icon as={RiSearchLine} fontSize="20" alignSelf="center" mr="1" />
@@ -43,7 +76,7 @@ export function Dashboard() {
                     </Flex>
                 </Flex>
                 {repos && (
-                    <SimpleGrid columns={3} gap="4" minChildWidth="320px" align="flex-start">
+                    <SimpleGrid minChildWidth="320px" spacing={4}>
                         {repos.map(repository => (
                             <Box
                                 p="8"
@@ -59,7 +92,7 @@ export function Dashboard() {
                                         <Text as="span" color="gray.500">Updated 2 days ago</Text>
                                     </Box>
                                     <Text>{repository.description}</Text>
-                                    <Flex justify="space-between">
+                                    <HStack spacing="4">
                                         <Flex align="center">
                                             <Icon as={RiStarFill} />
                                             <Text>{repository.stargazers_count}</Text>
@@ -68,7 +101,7 @@ export function Dashboard() {
                                             <Icon as={RiStackshareLine} />
                                             <Text>{repository.forks_count}</Text>
                                         </Flex>
-                                    </Flex>
+                                    </HStack>
                                 </Stack>
                             </Box>
                         ))}
